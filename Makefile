@@ -6,7 +6,7 @@
 #    By: kebris-c <kebris-c@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/08 13:07:54 by kebris-c          #+#    #+#              #
-#    Updated: 2025/10/29 18:55:59 by kebris-c         ###   ########.fr        #
+#    Updated: 2025/10/30 16:01:26 by kebris-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,9 @@ N_B_GDB		= $(P_B_GDB).a
 
 #	Special project variables
 #
-MLX 	= ./minilibx-linux/libmlx.a
 MLX_DIR	= ./minilibx-linux/
+MLX 	= $(MLX_DIR)libmlx.a
+MLX2	= $(MLX_DIR)libmlx_Linux.a
 MLXFLAG	= -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
 # 🔧 Compiler and flags
@@ -115,6 +116,7 @@ L_SRC_DIR		= libft/src/
 L_INCL_DIR		= libft/include/
 L_OBJS_DIR		= libft/objs/
 L_DEPS_DIR		= libft/deps/
+LIB				= $(LIB_DIR)libft.a
 
 # 🎯 Sources, Objects and Deps	! Remember to update the list wvery project
 #
@@ -127,7 +129,7 @@ SRCS	= so_long.c \
 		  textures_load.c
 OBJS	= $(patsubst %.c,$(OBJS_DIR)%.o,$(SRCS))
 DEPS	= $(patsubst $(OBJS_DIR)%.o,$(DEPS_DIR)%.d,$(OBJS))
-# And if there is bonus...
+# If there is bonus...
 #
 B_SRCS	= $(SRCS)
 B_OBJS	= $(patsubst %.c,$(B_OBJS_DIR)%.o,$(B_SRCS))
@@ -368,12 +370,12 @@ $(B_OBJS_DIR)%.o: $(B_SRC_DIR)%.c | setup
 #	Cleaners
 #
 clean:
-	@$(RM) $(OBJS) $(B_OBJS) $(DEPS) $(B_DEPS)
+	@$(RM) $(OBJS_DIR) $(DEPS_DIR) $(B_OBJS_DIR) $(B_DEPS_DIR) $(L_OBJS_DIR) $(L_DEPS_DIR)
 
 fclean: clean
-	@$(RM) $(NAME) $(N_BONUS) $(N_DBG) $(N_B_DBG) $(N_RIGOR) $(N_B_RIGOR) $(N_GDB) $(N_B_GDB) \
-		$(PROJECT) $(P_BONUS) $(P_DBG) $(P_B_DBG) $(P_RIGOR) $(P_B_RIGOR) $(P_GDB) $(P_B_GDB) \
-		$(OBJS_DIR) $(DEPS_DIR) $(B_OBJS_DIR) $(B_DEPS_DIR)
+	@$(RM) $(MLX) $(MLX2) \
+		$(NAME) $(N_BONUS) $(LIB) $(N_DBG) $(N_B_DBG) $(N_RIGOR) $(N_B_RIGOR) $(N_GDB) $(N_B_GDB) \
+		$(PROJECT) $(P_BONUS) $(P_DBG) $(P_B_DBG) $(P_RIGOR) $(P_B_RIGOR) $(P_GDB) $(P_B_GDB)
 
 #	Reworks from zero
 #
